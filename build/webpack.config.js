@@ -171,7 +171,7 @@ const config = {
             //     ]
             // },
             {
-                test: /\.(png|jpg|jpe?g|gif|svg)$/,
+                test: /\.(png|jpg|jpeg|gif|svg|ttf|woff)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -260,7 +260,7 @@ if (process.env.npm_lifecycle_event === 'build') {
             new UglifyJSPlugin(),
             new CopyWebpackPlugin([
                 {
-                    from: resolve('static'),
+                    from: resolve('src/static'),
                     to: 'static',
                     ignore: ['.*']
                 }

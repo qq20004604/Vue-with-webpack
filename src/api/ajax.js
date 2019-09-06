@@ -8,9 +8,17 @@
 import {get, post} from '../config/http';
 
 const $ajax = {
-    test () {
-        return get('/test', {});
+    test_login () {
+        return get('/test_login', {});
+    },
+    test_post (payload) {
+        return post('/test_post', payload)
     }
 };
 
-export default $ajax;
+export default {
+    install: function (Vue, options) {
+        // 添加方法，可以修改 <title> 标签的内容
+        Vue.prototype.$ajax = $ajax;
+    }
+}

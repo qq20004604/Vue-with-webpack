@@ -30,6 +30,6 @@ module.exports = {
         'indent': ['error', 4],
         'no-unused-vars': 0,
         'semi': [0],
-        "quotes": [1, "single"]
+        'quotes': [1, 'single']
     }
 };

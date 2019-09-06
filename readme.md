@@ -101,3 +101,156 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 
 ### 4.2、目录说明
 
+```
+.
+├── LICENSE	// MIT许可证
+├── build		// webpack配置文件夹
+│   ├── postcss.config.js	// postcss
+│   └── webpack.config.js	// webpack的配置
+├── dist
+│   ├── css	// css文件都打包到这里
+│   │   ├── test_demo.css
+│   │   └── test_page.css
+│   ├── static	// src/static下的文件会被打包到这里（无论是否引用）
+│   │   └── 
+│   ├── test_demo.html	// src/page/test_demo打包的html
+│   ├── test_demo.js	// src/page/test_demo打包的js
+│   ├── test_page.html	// src/page/test_page打包的html
+│   └── test_page.js	// src/page/test_page打包的js
+├── doc	// 工程文档所在文件夹，都放这里
+│   └── 01.png
+├── index.html	// 模板html，所有生成的html都基于这个来生成的
+├── package.json	// npm依赖管理文件，不懂的话不要管他
+├── readme.md		// 本说明文件，实际工程中，建议改为其他名字，本文件名留给工程的说明文档
+├── src			// 资源文件，你的所有跟业务有关的，都应该在这
+│   ├── api
+│   │   └── ajax.js	// 封装好的异步请求，你的所有异步请求应该归类在这里，其他地方直接调用引入的方法即可（具体见下方说明）
+│   ├── assets	// 小图片、字体文件之类，统一放这里
+│   │   └── 小图片.png
+│   ├── common	// 一些业务向的配置文件，或公共库文件
+│   │   ├── css	// 需要在其他组件里引入的css库放这里
+│   │   │   └── reset.css	// 重置css样式，使不同浏览器体验统一
+│   │   ├── js	// 需要在其他组件引入的js库，比如你自己写的html选择器
+│   │   └── less	// 需引入的less文件，或者less属性配置
+│   │   │   └── config.less	// 比如让某个变量等于某些颜色 
+│   ├── components	// 所有子组件应该放这里
+│   │   ├── test
+│   │   └── 子组件放在这里，建议每个相关组件，放在同一个文件夹下
+│   ├── config	// 这个放环境配置方面的js文件（即跟业务无关的js代码）
+│   │   ├── env.js	// 环境配置
+│   │   └── http.js	// axios配置，一般情况下不需要改
+│   ├── img	// 图片文件夹，图片（大）放在这里
+│   │   └── test.jpg
+│   ├── page	// 每个文件夹一个页面，入口文件名必须是app.js这样的
+│   │   ├── test_demo	// 第一个示例，纯vue项目
+│   │   └── test_page	// 第二个示例，带vue-rotuer和vuex
+│   ├── plugin	// vue插件
+│   │   ├── forDevelopment.js
+│   │   └── vue的插件，统一放在这里
+│   ├── static	// 静态资源文件夹
+│   │   └── 静态资源放这里，会被一起移动到打包后的static文件夹下（无论是否被引用）
+│   └── store		// vuex的store文件放这里，每个入口一个文件夹
+│       ├── test_store	// 对应的是page/test_store
+│       └── 
+├── .eslintrc.js	// eslint，不需要改
+├── .editorconfig	// eslint，不需要改
+├── .gitignore	// 不会被加入到git列表里的文件
+└── .babelrc	// babel配置文件，默认情况下不需要改
+```
+
+### 4.3、异步请求
+
+异步请求已经被封装好了，通常情况下，不需要关心相关配置。这里说明一下使用方法。
+
+默认post方式下，以json形式向后端请求
+
+> 1、新增一个异步请求
+
+打开 ``src/api/ajax.js`` 文件，现在代码是：
+
+```
+// 上略
+const $ajax = {
+    test_login () {
+        return get('/test_login', {});
+    }
+};
+// 下略
+```
+
+现有一个请求方式为get，url为 /test_login 的测试异步请求。
+
+现根据需求，需要添加一个 post 请求，url为 /test_post，需要传一个对象，测试数据为 ``{ data:1 }``
+
+修改后代码如下：
+
+```
+// 上略
+const $ajax = {
+    test_login () {
+        return get('/test_login', {});
+    },
+    // payload为参数，即需要传的数据
+    test_post (payload) {
+        return post('/test_post', payload)
+    }
+};
+// 下略
+```
+
+> 2、如何在组件内使用异步请求
+
+在第一步完成后，找到你的组件，假设是 src/page/test_demo/App.vue
+
+先在 template 里添加一个测试按钮吧
+
+```
+<button @click="test_post">post测试按钮</button>
+```
+
+再新增一个方法，写在 methods 里：
+
+```
+methods: {
+	// ... 略
+    test_post () {
+    	 const data = {
+            a: 1
+        }
+        this.$ajax.test_login(data).then(result => {
+            console.log(result)
+        }).catch(err => {
+            console.log(`err:${err}`)
+        })
+    }
+}
+```
+
+就这么简单。
+
+> 3、如何实现本地开发，请求其他服务器接口
+
+本地开发，请求其他服务器接口，则会涉及到跨域问题，因此是不能直接请求的。
+
+假设我目标服务器的 ip 是：``192.168.0.200:4000``，请求的url地址是：``/test_post``（即和上面2保持一致，相当于是在2基础上增加跨域问题）
+
+首先，打开文件 ``build/webpack.config.js`` ，找到 ``devServer`` 属性，然后找他的子属性 ``proxy``，修改之，参考代码如下：
+
+```
+proxy: {
+    '/api': {
+        target: 'http://192.168.0.200:4000',
+        changeOrigin: true,
+        pathRewrite: {
+            '^/api': ''
+        }
+    }
+}
+```
+
+如果是访问本地起的后端服务，道理是一样的。
+
+> 4、post请求不使用json格式（即改使用form表单形式提交）
+
+打开文件：``src/config/http.js``，修改 ``const USE_FORM = false`` 为 ``const USE_FORM = true`` 即可
+
