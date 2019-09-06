@@ -6,6 +6,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function resolve (dir) {
     return path.join(__dirname, '..', dir);
@@ -256,7 +257,14 @@ if (process.env.npm_lifecycle_event === 'build') {
             //     name: 'vendor', // 这个对应的是 entry 的 key
             //     minChunks: 2
             // }),
-            new UglifyJSPlugin()
+            new UglifyJSPlugin(),
+            new CopyWebpackPlugin([
+                {
+                    from: resolve('static'),
+                    to: 'static',
+                    ignore: ['.*']
+                }
+            ])
         ]
     ];
     config.resolve.alias = Object.assign({}, config.resolve.alias, {

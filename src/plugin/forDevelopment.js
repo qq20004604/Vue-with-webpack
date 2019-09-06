@@ -13,6 +13,12 @@ export default {
                     window[this.name] = this
                 }
             }
+
         })
+
+        // 添加方法，可以修改 <title> 标签的内容
+        Vue.prototype.$setPageTitle = function (title) {
+            document.getElementsByTagName('title')[0].innerText = title
+        }
     }
 }

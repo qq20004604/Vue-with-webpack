@@ -10,14 +10,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import 'common/less/config.less'
 import http from '@/api/ajax.js';
-import store from 'store/test_store/index.js'
 import forDevelopment from 'plugin/forDevelopment'
 
 // 浏览器的title（就是显示在tag标签的本页面名字）
-const TITLE = '测试demo，带vue-router和vuex'
+const TITLE = '测试demo，纯vue'
 
 document.getElementsByTagName('title')[0].innerText = TITLE
 
@@ -37,8 +35,6 @@ if (process.env.NODE_ENV === 'development') {
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
-    store,
-    router,
     template: '<App/>',
     components: {App}
 })
