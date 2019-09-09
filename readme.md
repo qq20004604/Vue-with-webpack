@@ -23,7 +23,7 @@ Vue2.x脚手架，包含：
 * 开发模式下ajax转发（本地开发时解决跨域问题）
 * 多页模式（按规则建立入口文件，不同入口自动打包为不同html文件）；
 * 资源文件夹已分类（并在该文件夹下有相应说明文件）；
-* 一个示例demo（见page/test_page）；
+* 两个示例demo（见page/test_page）；
 * reset.css（重置css样式，使得不同浏览器的样式保持一致）；
 * 小图片自动打包到一个static文件夹内；
 
@@ -143,7 +143,13 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 │   │   └── test.jpg
 │   ├── page	// 每个文件夹一个页面，入口文件名必须是app.js这样的
 │   │   ├── test_demo	// 第一个示例，纯vue项目
+│   │   │   ├── app.js	// 入口js文件，一切从这里开始
+│   │   │   └── app.vue	// Vue根组件，在app.js里被引入
 │   │   └── test_page	// 第二个示例，带vue-rotuer和vuex
+│   │       ├── app.js	// 入口js文件，一切从这里开始
+│   │       ├── app.vue	// Vue根组件，在app.js里被引入
+│   │       └── router  // 本页面的vue-router在这里配置
+│   │           └── index.js    // Vue-router的入口文件
 │   ├── plugin	// vue插件
 │   │   ├── forDevelopment.js
 │   │   └── vue的插件，统一放在这里
