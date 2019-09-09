@@ -270,6 +270,11 @@ if (process.env.npm_lifecycle_event === 'build') {
     config.resolve.alias = Object.assign({}, config.resolve.alias, {
         'vue': 'vue/dist/vue.min.js'
     })
+    config.externals = {
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'vuex': 'Vuex'
+    }
 } else {
     config.plugins = [...config.plugins,
         ...[
