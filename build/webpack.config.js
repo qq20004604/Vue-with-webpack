@@ -155,21 +155,40 @@ const config = {
                 })
 
             },
-            // {
-            //     test: /\.(png|jpg|jpe?g|gif|svg)$/,
-            //     use: [
-            //         {
-            //             loader: 'url-loader',
-            //             options: {
-            //                 limit: 4096,
-            //                 name: '[hash].[ext]',
-            //                 outputPath: function (fileName) {
-            //                     return '[path]img/' + fileName;    // 后面要拼上这个 fileName 才行
-            //                 }
-            //             }
-            //         }
-            //     ]
-            // },
+            {
+                test: /\.s(a|c)ss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        // 'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                root: resolve('src/static'),   // url里，以 / 开头的路径，去找src/static文件夹
+                                minimize: true, // 压缩css代码
+                                modules: false,
+                                // sourceMap: true,    // sourceMap，默认关闭
+                                alias: {
+                                    '@': resolve('src/img'), // '~@/logo.png' 这种写法，会去找src/img/logo.png这个文件
+                                    'common': resolve('src/common')
+                                }
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    path: resolve('build')
+                                },
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader'   // compiles Sass to CSS
+                        }
+                    ]
+                })
+            },
             {
                 test: /\.(png|jpg|jpeg|gif|svg|ttf|woff)$/,
                 use: [
