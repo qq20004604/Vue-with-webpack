@@ -260,3 +260,34 @@ proxy: {
 
 打开文件：``src/config/http.js``，修改 ``const USE_FORM = false`` 为 ``const USE_FORM = true`` 即可
 
+
+### 4.4、使用图片
+
+> 图片位置
+
+大图片放在 ``src/img`` 目录下，小图片放在 ``src/assets`` 目录下
+
+> 通过 js 引入图片
+
+示例：
+
+引入 ``assets/knife.png`` 这个图片
+
+```
+<img src={require('assets/knife.png')}
+                     alt=""/>
+```
+
+> 通过 css 引入图片
+
+引入 ``img/login.png`` 这个图片
+
+```
+#app {
+    background-image: url('~img/login.png');
+}
+```
+
+> 配置方法：
+
+``build/webpack.config.js`` 文件里，``resolve.alias`` 属性

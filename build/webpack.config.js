@@ -110,11 +110,7 @@ const config = {
                             options: {
                                 modules: false,
                                 minimize: true,
-                                sourceMap: false,
-                                alias: {
-                                    '@': resolve('src/img'), // '~@/logo.png' 这种写法，会去找src/img/logo.png这个文件
-                                    'common': resolve('src/common')
-                                }
+                                sourceMap: false
                             }
                         }
                     ]
@@ -133,10 +129,6 @@ const config = {
                                 minimize: true, // 压缩css代码
                                 modules: false,
                                 // sourceMap: true,    // sourceMap，默认关闭
-                                alias: {
-                                    '@': resolve('src/img'), // '~@/logo.png' 这种写法，会去找src/img/logo.png这个文件
-                                    'common': resolve('src/common')
-                                }
                             }
                         },
                         {
@@ -168,10 +160,6 @@ const config = {
                                 minimize: true, // 压缩css代码
                                 modules: false,
                                 // sourceMap: true,    // sourceMap，默认关闭
-                                alias: {
-                                    '@': resolve('src/img'), // '~@/logo.png' 这种写法，会去找src/img/logo.png这个文件
-                                    'common': resolve('src/common')
-                                }
                             }
                         },
                         {
@@ -251,7 +239,8 @@ const config = {
             'assets': resolve('src/assets'),
             'store': resolve('src/store'),
             'plugin': resolve('src/plugin'),
-            'vue': 'vue/dist/vue.js'
+            'vue': 'vue/dist/vue.js',
+            'img': resolve('src/img')
         }
     }
 };
