@@ -63,7 +63,7 @@ let post = (url, data) => {
     return axios({
         method: 'post',
         url,
-        data: USE_FORM ? data : JSON.stringify(data)
+        data
     })
 }
 
