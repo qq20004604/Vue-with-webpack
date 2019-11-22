@@ -151,7 +151,7 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 │   │       └── router  // 本页面的vue-router在这里配置
 │   │           └── index.js    // Vue-router的入口文件
 │   ├── plugin	// vue插件
-│   │   ├── forDevelopment.js
+│   │   ├── for_development.js
 │   │   └── vue的插件，统一放在这里
 │   ├── static	// 静态资源文件夹
 │   │   └── 静态资源放这里，会被一起移动到打包后的static文件夹下（无论是否被引用）

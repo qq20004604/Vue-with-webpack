@@ -9,7 +9,7 @@ export default {
     install: function (Vue, options) {
         Vue.mixin({
             created () {
-                if (this.name) {
+                if (this.$options.name) {
                     window[this.$options.name] = this;
                 }
             }

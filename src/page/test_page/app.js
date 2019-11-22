@@ -14,7 +14,9 @@ import router from './router'
 import 'common/less/config.less'
 import http from '@/api/ajax.js';
 import store from 'store/test_store/index.js'
-import forDevelopment from 'plugin/forDevelopment'
+import forDevelopment from 'plugin/for_development'
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // 浏览器的title（就是显示在tag标签的本页面名字）
 const TITLE = '测试demo，带vue-router和vuex'
@@ -23,6 +25,7 @@ document.getElementsByTagName('title')[0].innerText = TITLE
 
 Vue.config.productionTip = false
 Vue.use(http)
+Vue.use(Element)
 // 开发调试配置
 if (process.env.NODE_ENV === 'development') {
     Vue.use(forDevelopment)

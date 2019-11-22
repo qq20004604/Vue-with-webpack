@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         这是一个纯Vue项目，没有vue-router和vuex
-        <button @click="test_login">ajax测试按钮</button>
-        <button @click="test_post">post测试按钮</button>
+        <el-button type="primary" @click="test_login">ajax测试按钮</el-button>
+        <el-button type="success" @click="test_post">post测试按钮</el-button>
     </div>
 </template>
 <script>
