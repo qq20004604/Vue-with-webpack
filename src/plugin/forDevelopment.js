@@ -10,7 +10,7 @@ export default {
         Vue.mixin({
             created () {
                 if (this.name) {
-                    window[this.name] = this
+                    window[this.$options.name] = this;
                 }
             }
 
