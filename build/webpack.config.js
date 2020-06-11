@@ -240,7 +240,7 @@ const config = {
             'store': resolve('src/store'),
             'plugin': resolve('src/plugin'),
             'vue': 'vue/dist/vue.js',
-            'img': resolve('src/img')
+            'img': resolve('src/assets')
         }
     }
 };
